@@ -1,0 +1,13 @@
+.table {
+  border-collapse: collapse;
+}
+
+th {
+    background-color: lightgrey;
+    border: 1px solid black;
+}
+
+td {
+    border: 1px solid black;
+    background-color: lightslategray;
+}
