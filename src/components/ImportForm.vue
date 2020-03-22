@@ -7,7 +7,7 @@
         class="textarea-json"
         placeholder='[{"name":"","surname":"","email":"","phone":""}]'
         rows="10"
-        cols="35"
+        cols="60"
         v-model.trim="inputText"
       >
       </textarea>
@@ -137,6 +137,7 @@ export default {
 .textarea-json {
   margin-top: 10px;
   display: block;
+  resize: vertical;
 }
 
 .button-json {
