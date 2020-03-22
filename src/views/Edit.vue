@@ -21,22 +21,24 @@
       </label>
       <label>email:
         <input
-          type="text"
+          type="email"
           placeholder="Enter email"
           v-model="user.email"
         >
       </label>
       <label>number phone:
         <input
-        type="text"
-        placeholder="Enter phone number"
-        v-model="user.phone"
-        required
-      >
+          type="tel"
+          title="38(ХХХ)XXX-XX-XX"
+          placeholder="38(ХХХ)XXX-XX-XX"
+          v-model="user.phone"
+          pattern="38\([0-9]{3}\)[0-9]{3}-[0-9]{2}-[0-9]{2}"
+          required
+        >
       </label>
       <div class='button-container'>
-        <button class="button" type="submit">{{isEdit ? 'Save' : 'Add'}}</button>
-        <router-link class="button" to="/">Return</router-link>
+        <button class="btn button" type="submit">{{isEdit ? 'Save' : 'Add'}}</button>
+        <router-link tag="button" class="btn button" to="/">Return</router-link>
       </div>
     </form>
     <ImportForm />
@@ -55,7 +57,6 @@ export default {
   }),
   methods: {
     onSubmit () {
-      console.log(this.users)
       if (this.user.name && this.user.surname && this.user.phone) {
         if (!this.isEdit) {
           this.user.id = +localStorage.getItem('nextId')
@@ -64,17 +65,13 @@ export default {
           localStorage.setItem('users', JSON.stringify(this.users))
           this.user = { name: '', surname: '', email: '', phone: '', id: 0 }
         } else {
-          console.log('innn', this.user)
-          console.log('innn', this.users)
-          console.log('innn', this.user)
           localStorage.setItem('users', JSON.stringify(this.users))
         }
       }
     }
   },
   mounted () {
-    let user
-
+    let user = null
     if (localStorage.getItem('users')) {
       try {
         this.users = JSON.parse(localStorage.getItem('users'))
@@ -97,17 +94,9 @@ export default {
 
 <style lang="scss">
 
-.button {
-  padding: 5px 10px;
-  width: 30%;
-  text-decoration: none;
-  background-color: lightgray;
-  color: black;
-  font-size: 16px;
-  border: 1px solid grey;
-  border-radius: 10px;
-  text-align: center;
-  line-height: 25px;
+.button,
+.button:focus {
+  background-color: lightsalmon;
 }
 
 .button-container {
@@ -117,25 +106,9 @@ export default {
 }
 
 .title {
+  font-size: 30px;
   margin: 20px auto;
   width: fit-content;
-}
-
-.table {
-  border-collapse: collapse;
-  margin: 30px auto;
-}
-
-.add {
-  display: block;
-  padding: 5px 10px;
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 200px;
-  text-align: center;
-  margin: 10px auto 30px;
-  text-decoration: none;
-  color: blueviolet
 }
 
 label,
@@ -153,10 +126,12 @@ label {
 }
 
 form {
+  padding-bottom: 10px;;
   width: 350px;
   margin: 0 auto;
-  border: 1px solid black;
+  border: none;
   border-radius: 20px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
 </style>

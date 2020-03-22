@@ -1,12 +1,11 @@
 <template>
   <form class="import-form" @submit.prevent="onLoadClick">
     <label class="label-json">
-      Type your JSON Object for Users<br>
+      <p class="title-json">Type your JSON Object for Users</p>
       <p class="note">Note: Fields name, surname and phone are obligatory.</p>
       <textarea
         class="textarea-json"
         placeholder='[{"name":"","surname":"","email":"","phone":""}]'
-        rows="10"
         cols="60"
         v-model.trim="inputText"
       >
@@ -14,7 +13,7 @@
     </label>
     <p class="error">{{isSuccess}}<p/>
     <p class="error">{{error}}<p/>
-    <button type="submit" class="button button-json">Load</button>
+    <button type="submit" class="btn button-json">Load</button>
   </form>
 </template>
 
@@ -34,7 +33,6 @@ export default {
           this.error = 'Error parsing JSON'
         }
       }
-      console.log(users)
       if (users) {
         if (typeof users === 'object') {
           if (!Array.isArray(users)) {
@@ -59,8 +57,6 @@ export default {
               errorUsers.push(user)
             }
           })
-          console.log(validUsers)
-          console.log(errorUsers)
           if (validUsers.length) {
             const usersFromStorage = JSON.parse(localStorage.getItem('users'))
             let nextId = +localStorage.getItem('nextId')
@@ -72,10 +68,8 @@ export default {
                 phone: user.phone,
                 email: user.email || ''
               }
-              console.log('newUser', newUser)
               usersFromStorage.push(newUser)
             })
-            console.log(usersFromStorage)
             localStorage.setItem('users', JSON.stringify(usersFromStorage))
             localStorage.setItem('nextId', nextId)
           }
@@ -114,15 +108,21 @@ export default {
 
 <style>
 .error {
+  width: fit-content;
   color: red;
+  margin: 0 auto;
+}
+
+.title-json {
+  margin:0 0 0 20px;
 }
 
 .note {
+  margin:0 0 0 20px;
   font-size: 12px;
 }
 
 .import-form {
-  border: 1px solid black;
   border-radius: 20px;
   padding: 10px;
   margin: 20px auto;
@@ -130,7 +130,7 @@ export default {
 }
 
 .label-json {
-  margin: 0;
+  font-size: 16px;
   width: fit-content;
 }
 
@@ -138,6 +138,14 @@ export default {
   margin-top: 10px;
   display: block;
   resize: vertical;
+  height: 200px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  outline: none;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+    0 3px 1px -2px rgba(0,0,0,0.12),
+    0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
 .button-json {

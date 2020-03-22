@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <router-link to='/edit' class="add">Add new user</router-link>
-    <table class="table">
+  <div class="table-container">
+    <router-link tag="button" to='/edit' class="btn add">Add new user</router-link>
+    <table class="centered highlight table">
       <thead>
         <tr>
           <th>#</th>
@@ -23,8 +23,8 @@
           <td>{{ user.surname }}</td>
           <td>{{ user.phone }}</td>
           <td>{{ user.email }}</td>
-          <td><router-link class="edit-button" :to="'edit/' + user.id">Edit</router-link></td>
-          <td><button class="delete-button" type="button" @click="onDeleteClick(index)">X</button></td>
+          <td><router-link class="btn edit-button" :to="'edit/' + user.id">Edit</router-link></td>
+          <td><button class="btn delete-button" type="button" @click="onDeleteClick(index)">X</button></td>
         </tr>
       </tbody>
     </table>
@@ -57,59 +57,55 @@ export default {
         localStorage.removeItem('users')
         localStorage.setItem('nextId', 1)
       }
+    } else {
+      localStorage.setItem('nextId', 1)
     }
   }
 }
 </script>
 
 <style lang="scss">
+
+.table-container {
+  padding: 0 10px;
+}
 .table {
-  border-collapse: collapse;
-  margin: 30px auto;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+    0 3px 1px -2px rgba(0,0,0,0.12),
+    0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
-th {
-    background-color: lightgrey;
-    border: 1px solid black;
-    padding: 5px 10px;
-}
-
-td {
-    border: 1px solid black;
-    background-color: lightcyan;
-    padding: 5px 10px;
-    text-align: center;
-    padding: 10px;
-}
-
-.add {
-  display: block;
-  padding: 5px 10px;
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 200px;
-  text-align: center;
-  margin: 10px auto 30px;
+.add,
+.add:visited {
   text-decoration: none;
-  color: black;
+  display: block;
+  width: 180px;
+  margin: 10px auto 30px;
   background-color: lightsalmon;
 }
 
 .delete-button {
   border-radius: 50%;
   background-color: red;
-  border: none;
-  color: white;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  padding: 0;
+}
+
+.table td:last-child,
+.table td:first-child {
+  width: 60px;
+}
+
+.table td:nth-last-child(2) {
+  width: 90px;
 }
 
 .edit-button {
-  text-decoration: none;
-  padding: 5px;
-  border: 1px solid gray;
-  margin: 5px;
-  color: black;
-  border-radius: 10px;
   background-color: lightsalmon;
 }
-
 </style>
